@@ -38,7 +38,7 @@
  * 
  */
 
-import Vue from 'vue';
+/* import Vue from 'vue';
 import login from './login.vue';
 
 var vm = new Vue({
@@ -56,7 +56,7 @@ var vm = new Vue({
     //     login
     // }
 
-}); 
+});  */
 
 
 /**
@@ -95,9 +95,47 @@ var vm = new Vue({
 //console.log(huodeming);//成功输出对象.
 
 //export使用方法如下,注意:export暴露的成员可以按需导出.export导出的成员,必须按原名名来使用,但也可以用(原名 as 别名)的方式来改名.
-import huodeming, { title, name as aa } from './js/test.js';
-console.log(huodeming);//成功输出对象.
-console.log(title);
-console.log(aa);
+// import huodeming, { title, name as aa } from './js/test.js';
+// console.log(huodeming);//成功输出对象.
+// console.log(title);
+// console.log(aa);
+
+//webpack中便用vue-router,上面的代码我全注释了================================================================================================================================================
+
+/**
+ * 1.安装 
+        npm i vue-router -S
+ * 2.在main.js中
+        import VueRouter from 'vue-router';
+        Vue.use(VueRouter);
+ * 3.创建并导入 要用的 vue 组件.
+ * 4.创建路由对象
+ * 5.创建vm实例并在里面挂载路由对象
+ */
+
+//2.
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+Vue.use(VueRouter);//把路由注册到Vue中.
+
+//3.创建并导入 要用的 vue 组件.
+import app from './main/App.vue';
+import account from './main/Account.vue';
+import goodslist from './main/GoodsList.vue';
+
+//4.创建路由对象
+var router = new VueRouter({
+    routes: [
+        {path: '/account', component: account},
+        {path: '/goodslist', component: goodslist}
+    ]
+});
+
+//5.创建vm实例并在里面挂载路由对象
+var vm = new Vue({
+    el:'#app',
+    render: c => c(app),//会把App中内容覆盖到index.html中的#app标签,所以router-link与router-view要写在App.vue文件中. 
+    router  //将路由对象挂载到 vm 实例上
+});
 
 
