@@ -21,9 +21,24 @@
  * 
  */
 //import Vue from 'vue';
-import Vue from '../node_modules/vue/dist/vue.js';
+//import Vue from '../node_modules/vue/dist/vue.js';
 
+//var login = {template: "<h2>这是login组件,是使用网页中的形式创建出来的组件</h2>"};
+import Vue from 'vue';
+/**
+ * 导入login组件,会出问题,因为webpack无法打包.vue文件,需安装相关loader 及依赖项.
+ *  安装: 
+ *      npm i vue-loader vue-template-compiler -D 
+ *  配置:webpack.config.js文件下,如果是早期版本(V15之前,不包含,如"vue-loader": "^13.3.0",),前2项配置可以不写,只需配置路由规则就行了.
+ *      1.const VueLoaderPlugin = require('vue-loader/lib/plugin')
+ *      2.plugins:[new VueLoaderPlugin(),],
+ *      3.module: {rules: [{test: /\.vue$/, use: 'vue-loader'},],}
+ * 不管怎么样,vue的runtime-only下,组件不能通过实例把它放到页面上,如:components:{login} 它在浏览器中就会报错.
+ * 此时,我们可以通过实例的render 把组件放到页面上.但要注意,render会直接替换掉#app的所有内容.包括#app这个标签.
+ * 
+ */
 
+import login from './login.vue';
 
 var vm = new Vue({
     el:'#app',
@@ -31,5 +46,13 @@ var vm = new Vue({
         msg: '123'
     },
     methods: {},
+    //可以简写成箭头函数.c是形参,当代码只有一行时,大括号可以省略不写,不写return,它默认就是return.
+    render: c => c(login),
+    /* render: function(createElements){
+        return createElements(login);
+    }, */
+/*      components:{
+        login
+    }  */
 
 });

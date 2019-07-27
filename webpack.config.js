@@ -1,6 +1,8 @@
 const path = require('path');
 const webpack = require('webpack');
 
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
+
 const htmlWebpackPlugin = require('html-webpack-plugin');
 //这个配置文件,其实就是一个JS文件,通过 Node 的的模块操作,向外暴露了一个配置对象.
 module.exports = {
@@ -28,6 +30,7 @@ module.exports = {
             //指定生成的页面
             filename: 'index.html'
         }),
+        new VueLoaderPlugin(),
     ], 
     module: {
         rules: [
@@ -37,6 +40,7 @@ module.exports = {
             {test: /\.(jpeg|jpg|jpe|gif|png|bmp)$/, use: 'url-loader?limit=20877'},
             {test: /\.(ttf|eot|svg|woff|woff2)$/, use: 'url-loader'},
             {test: /\.js$/, use: 'babel-loader', exclude: /node_modules/},
+            {test: /\.vue$/, use: 'vue-loader'},
         ],
     },
     resolve: {
