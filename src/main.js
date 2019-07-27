@@ -24,7 +24,7 @@
 //import Vue from '../node_modules/vue/dist/vue.js';
 
 //var login = {template: "<h2>这是login组件,是使用网页中的形式创建出来的组件</h2>"};
-import Vue from 'vue';
+
 /**
  * 导入login组件,会出问题,因为webpack无法打包.vue文件,需安装相关loader 及依赖项.
  *  安装: 
@@ -38,6 +38,7 @@ import Vue from 'vue';
  * 
  */
 
+import Vue from 'vue';
 import login from './login.vue';
 
 var vm = new Vue({
@@ -48,11 +49,55 @@ var vm = new Vue({
     methods: {},
     //可以简写成箭头函数.c是形参,当代码只有一行时,大括号可以省略不写,不写return,它默认就是return.
     render: c => c(login),
-    /* render: function(createElements){
-        return createElements(login);
-    }, */
-/*      components:{
-        login
-    }  */
+    // render: function(createElements){
+    //     return createElements(login);
+    // },
+    // components:{
+    //     login
+    // }
 
-});
+}); 
+
+
+/**
+ * 总结梳理: webpack中如何使用vue===============================================================
+ * 1. 安装vue包, npm i vue -S
+ * 2. 由于在webpack中,推荐使用.vue 后缀名组件模板文件文件定义组件,需要安装 loader 加载器, npm i vue-loader vue-template-compiler -D 
+ * 3. 配置vue-loader : v15以后分三步:
+ *      1.const VueLoaderPlugin = require('vue-loader/lib/plugin')
+ *      2.plugins:[new VueLoaderPlugin(),],
+ *      3.module: {rules: [{test: /\.vue$/, use: 'vue-loader'},],}
+ * 4. 在main.js中.导入vue模块: import Vue from 'vue';
+ * 5. 新建一个文件为.vue后缀的组件,如 login.vue 文件中由三部分组成: <template></template> <script></scrtip> <style></style>
+ * 6. 在main.js中,导入这个组件, import login from './login.vue';
+ * 7. 在main.js中,创建一个vm实例, var vm = new Vue({el:'#app',render:c => c(login)});
+ * 8. 在index.html中创建一个id为app的元素,作为 vm 实例要控制的区域;
+ * 
+ * 
+ */
+
+/**
+ * 关于开发规范问题,注意下面两种规范,统一用一种  我们选择ES6方式.
+ * 在ES6中,与Node一样,也通过规范的形式,规定了如何 导入 和 导出 模块
+ *  1.使用export 模块名称 from '模块标识符'     或不要模块名称导入    import '路径'
+ *  2.使用 export default 和 export 向外暴露成员
+ * 
+ * 在Node中
+ *  1.使用 var 名称 = require('标块标识符');
+ *  2.使用 module.exports  和 exports 来暴露成员
+ * 
+ * 我们创建js/test.js来演示
+ */
+
+
+//注意:一个模块中文件中,只允许用export default一次,如果想暴露多个成员,可以使用export来暴露多个成员.
+//import huodeming from './js/test.js';
+//console.log(huodeming);//成功输出对象.
+
+//export使用方法如下,注意:export暴露的成员可以按需导出.export导出的成员,必须按原名名来使用,但也可以用(原名 as 别名)的方式来改名.
+import huodeming, { title, name as aa } from './js/test.js';
+console.log(huodeming);//成功输出对象.
+console.log(title);
+console.log(aa);
+
+
