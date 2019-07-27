@@ -1,0 +1,10 @@
+li{
+    border: 1px solid #999;
+}
+#div01{
+    width: 500px;
+    height: 334px;
+    background: url('../images/down.jpg');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}

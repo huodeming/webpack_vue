@@ -1,0 +1,3 @@
+#ignore this files
+/package-lock.json
+node_modules/
