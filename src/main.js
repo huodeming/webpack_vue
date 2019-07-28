@@ -122,11 +122,20 @@ Vue.use(VueRouter);//把路由注册到Vue中.
 import app from './main/App.vue';
 import account from './main/Account.vue';
 import goodslist from './main/GoodsList.vue';
+import login from './main/login.vue';
+import reg from './main/reg.vue';
 
 //4.创建路由对象
 var router = new VueRouter({
     routes: [
-        {path: '/account', component: account},
+        {
+            path: '/account', 
+            component: account,
+            children:[
+                {path: 'login', component: login},
+                {path: 'reg', component: reg}
+            ]
+        },
         {path: '/goodslist', component: goodslist}
     ]
 });
