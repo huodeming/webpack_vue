@@ -118,27 +118,11 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);//把路由注册到Vue中.
 
-//3.创建并导入 要用的 vue 组件.
-import app from './main/App.vue';
-import account from './main/Account.vue';
-import goodslist from './main/GoodsList.vue';
-import login from './main/login.vue';
-import reg from './main/reg.vue';
 
-//4.创建路由对象
-var router = new VueRouter({
-    routes: [
-        {
-            path: '/account', 
-            component: account,
-            children:[
-                {path: 'login', component: login},
-                {path: 'reg', component: reg}
-            ]
-        },
-        {path: '/goodslist', component: goodslist}
-    ]
-});
+import app from './App.vue';
+
+//把路由部分抽离去出(router.js).然后在这里导入进来.
+import router from './router.js';
 
 //5.创建vm实例并在里面挂载路由对象
 var vm = new Vue({
